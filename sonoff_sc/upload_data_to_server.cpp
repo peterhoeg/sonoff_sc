@@ -102,8 +102,6 @@ void getDevConfigParam(String *rec_string)
     if(!string_tempthreshold.equals(""))
     {
         tempthreshold = string_tempthreshold.toInt();
-        Serial.print("tempthreshold: ");
-        Serial.print(tempthreshold);
     }
 }
 void readUart(void)
