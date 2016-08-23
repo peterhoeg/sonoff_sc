@@ -67,10 +67,6 @@ void getTempHumi(void)
             readIndex = 0;
         }  
     }
-    else
-    {
-        Serial.println("get temprature and humidity error");
-    }
 }
 void getAdcSensorValue(void)
 {

@@ -92,15 +92,11 @@ void getDevConfigParam(String *rec_string)
     if(!string_uploadfreq.equals(""))
     {
         upload_freq = string_uploadfreq.toInt();
-        Serial.print("upload_freq: ");
-        Serial.print(upload_freq);
     }
     string_humithreshold = getString(rec_string,"\"humiThreshold\":",",");
     if(!string_humithreshold.equals(""))
     {
         humithreshold = string_humithreshold.toInt();
-        Serial.print("humithreshold: ");
-        Serial.print(humithreshold);
     }
     string_tempthreshold = getString(rec_string,"\"tempThreshold\":",",");
     if(!string_tempthreshold.equals(""))
