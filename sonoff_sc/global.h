@@ -20,8 +20,10 @@ typedef struct _sensorDev
     union
     {
         uint16_t average_value;
-        uint16_t temp_humi_average[2];
+        int8_t temp_humi_average[2];
     };
+    int8_t level;
+    int8_t last_level;
     int pin;
 }sensorDev;
 

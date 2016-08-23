@@ -30,10 +30,13 @@ static void initData(void)
 {
     sensor_dev[0].total = 0;
     sensor_dev[0].pin = DUSTPIN;
+    sensor_dev[0].level = 0;
     sensor_dev[1].total = 0;
     sensor_dev[1].pin = LIGHTPIN;
+    sensor_dev[1].level = 0;
     sensor_dev[2].total = 0;
     sensor_dev[2].pin = MICROPHONEPIN;
+    sensor_dev[2].level = 0;
     sensor_dev[3].temp_humi_total[0] = 0;
     sensor_dev[3].temp_humi_total[1] = 0;
     sensor_dev[3].pin = DHT11PIN;
@@ -86,6 +89,8 @@ void getAdcSensorValue(void)
         sensor_dev[i].average_value = sensor_dev[i].total / AD_NUMREADINGS;
 //        sensor_dev[i].voltage_value = sensor_dev[i].average_value * (VOLTAGE / 1023.0);
     }
+    sensor_dev[1].level = sensor_dev[1].average_value / 102;
+    sensor_dev[0].level = (sensor_dev[0].average_value > 800)?(10):(sensor_dev[0].average_value / 80);
     nosie_value_temp = analogRead(sensor_dev[2].pin);
     if(nosie_value_temp > noise_max)
     {
@@ -102,6 +107,7 @@ void getAdcSensorValue(void)
         noise_readings[noise_index] = noise_max - noise_min;
         sensor_dev[2].total = noise_readings[noise_index] + sensor_dev[2].total;
         sensor_dev[2].average_value =  sensor_dev[2].total / NOISE_NUM;
+        sensor_dev[2].level = sensor_dev[2].average_value / 102;
 //        sensor_dev[2].voltage_value = sensor_dev[2].average_value * (VOLTAGE / 1023.0);
         noise_index = noise_index + 1;
         readIndex = 0;

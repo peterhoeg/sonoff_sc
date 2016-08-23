@@ -6,7 +6,6 @@
 static bool get_temp_humi_flag = false;
 static bool get_ad_value_flag = false;
 static bool update_value_flag = false;
-static uint16_t upload_freq = 10;
 
 void interCallback()
 {
@@ -20,10 +19,7 @@ void time2Callback()
     {
         get_temp_humi_flag = true;
     }
-    if(couter % upload_freq == 0)
-    {
-        update_value_flag = true;       
-    }
+    update_value_flag = true;       
 }
 void debugData(void)
 {
