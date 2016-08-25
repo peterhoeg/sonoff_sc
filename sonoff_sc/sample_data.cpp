@@ -85,8 +85,8 @@ void getAdcSensorValue(void)
         sensor_dev[i].average_value = sensor_dev[i].total / AD_NUMREADINGS;
 //        sensor_dev[i].voltage_value = sensor_dev[i].average_value * (VOLTAGE / 1023.0);
     }
-    sensor_dev[1].level = (sensor_dev[1].average_value > 989)?(10):(sensor_dev[1].average_value / 90);
-    sensor_dev[0].level = (sensor_dev[0].average_value > 769)?(10):(sensor_dev[0].average_value / 70);
+    sensor_dev[1].level = (sensor_dev[1].average_value > 999)?(10):(sensor_dev[1].average_value / 100 + 1);
+    sensor_dev[0].level = (sensor_dev[0].average_value > 799)?(10):(sensor_dev[0].average_value / 80 + 1);
     nosie_value_temp = analogRead(sensor_dev[2].pin);
     if(nosie_value_temp > noise_max)
     {
@@ -103,7 +103,7 @@ void getAdcSensorValue(void)
         noise_readings[noise_index] = noise_max - noise_min;
         sensor_dev[2].total = noise_readings[noise_index] + sensor_dev[2].total;
         sensor_dev[2].average_value =  sensor_dev[2].total / NOISE_NUM;
-        sensor_dev[2].level = (sensor_dev[2].average_value > 989)?(10):(sensor_dev[2].average_value / 90);
+        sensor_dev[2].level = (sensor_dev[2].average_value > 999)?(10):(sensor_dev[2].average_value / 100 + 1);
 //        sensor_dev[2].voltage_value = sensor_dev[2].average_value * (VOLTAGE / 1023.0);
         noise_index = noise_index + 1;
         readIndex = 0;
