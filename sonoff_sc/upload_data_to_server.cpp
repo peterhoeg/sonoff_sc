@@ -38,6 +38,7 @@ void syncData(void)
 void uploadSensorDataToServer(void)
 {
     static uint16_t couter = 0;
+    static uint8_t diff_couter = 0;
     couter++;
     if(network_status_ok && couter == upload_freq)
     {
@@ -52,14 +53,23 @@ void uploadSensorDataToServer(void)
           || sensor_dev[2].level != sensor_dev[2].last_level
           ))
     {
-          syncData();
-          sendData();
-          couter = 0;
+          diff_couter ++;
+          if(diff_couter >= 3)
+         {
+              syncData();
+              sendData();
+              couter = 0;
+              diff_couter = 0;
+          }
     }
     else if(couter % 10 == 0)
     {
         checkNetwork();
     }
+    else
+    {
+        diff_couter = 0; 
+     }
 }
 String getString(String *src,char *start,char *end)
 {
