@@ -151,6 +151,12 @@ void readUart(void)
         {
             network_status_ok = true;
         }
+        else if(-1 != (index1 = rec_string.indexOf("AT+START")))
+        {
+            network_status_ok = true;
+            sensor_dev[3].temp_humi_average[0] = 0;
+            sensor_dev[3].temp_humi_average[1] = 0;
+        }
         else
         {
             /*do nothing*/

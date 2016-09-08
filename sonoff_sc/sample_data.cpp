@@ -1,8 +1,8 @@
 #include "global.h"
 #include "sample_data.h"
 #include "TimerOne.h"
-#include <dht.h>
 
+#include "dht11.h"
 #define  AD_NUMREADINGS  (50)
 #define  NOISE_NUM    (10)
 #define  DHT11_NUMREADINGS  (5)
@@ -11,8 +11,9 @@
 #define LIGHTPIN       A3
 #define MICROPHONEPIN  A2
 #define DHT11PIN       6
-dht DHT; 
+
 sensorDev sensor_dev[4];
+
 
 static void initPin(void)
 {
@@ -51,12 +52,12 @@ void getTempHumi(void)
 {
     static uint8_t readIndex = 0;
     static int16_t DHT11_readings[2][DHT11_NUMREADINGS] = {0};
-    if(DHTLIB_OK == DHT.read11(6))
+    if(getSensorData(DHT11PIN))
     {
         sensor_dev[3].temp_humi_total[0] -= DHT11_readings[0][readIndex];
         sensor_dev[3].temp_humi_total[1] -= DHT11_readings[1][readIndex];
-        DHT11_readings[0][readIndex] = DHT.temperature;
-        DHT11_readings[1][readIndex] = DHT.humidity;
+        DHT11_readings[0][readIndex] = dht_temperature;
+        DHT11_readings[1][readIndex] = dht_humidity;
         sensor_dev[3].temp_humi_total[0] += DHT11_readings[0][readIndex];
         sensor_dev[3].temp_humi_total[1] += DHT11_readings[1][readIndex];
         sensor_dev[3].temp_humi_average[0] = sensor_dev[3].temp_humi_total[0] / DHT11_NUMREADINGS;
@@ -67,6 +68,10 @@ void getTempHumi(void)
             readIndex = 0;
         }  
     }
+    else
+    {
+        Serial.println("it is error");
+      }
 }
 void getAdcSensorValue(void)
 {

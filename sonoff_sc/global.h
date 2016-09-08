@@ -30,5 +30,4 @@ typedef struct _sensorDev
 extern sensorDev sensor_dev[4];
 
 
-
 #endif
