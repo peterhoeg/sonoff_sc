@@ -6,6 +6,7 @@ static uint16_t upload_freq = 1800;
 static uint8_t humithreshold = 2;
 static uint8_t tempthreshold = 1;
 static int8_t last_temp_humi_average[2] = {0};
+static bool first_update = false;
 static void sendData(void)
 {
     Serial.write("AT+UPDATE=\"humidity\":");
@@ -150,12 +151,23 @@ void readUart(void)
         else if(-1 != (index1 = rec_string.indexOf("AT+STATUS=4")))
         {
             network_status_ok = true;
+            if(first_update)
+            {
+                first_update = false;
+                last_temp_humi_average[0] = 0;
+                last_temp_humi_average[1] = 0;
+            }
+        }
+        else if(-1 != (index1 = rec_string.indexOf("AT+STATUS")))
+        {
+              first_update = true;
+              network_status_ok = false;
         }
         else if(-1 != (index1 = rec_string.indexOf("AT+START")))
         {
-            network_status_ok = true;
-            sensor_dev[3].temp_humi_average[0] = 0;
-            sensor_dev[3].temp_humi_average[1] = 0;
+              network_status_ok = true;
+              last_temp_humi_average[0] = 0;
+              last_temp_humi_average[1] = 0;
         }
         else
         {
