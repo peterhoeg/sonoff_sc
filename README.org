@@ -1,0 +1,5 @@
+* Sonoff SC firmware
+
+This repository contains the original firmware for the atmega328p chip in the Sonoff SC.
+
+There are no code changes (yet) and will allow you to install the original firmware in case you have been messing around with alternative ones.
