@@ -1,6 +1,7 @@
-PORT ?= /dev/ttyUSB0
+PROTOCOL ?= usbasp
+PORT ?= usb
 
 default: original
 
 original:
-	@pio run -t upload -e $@ --upload-port $(PORT)
+	@pio run -t upload -e $@ --upload-protocol $(PROTOCOL) --upload-port $(PORT)
