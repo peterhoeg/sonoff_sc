@@ -3,8 +3,6 @@
 #include "sample_data.h"
 #include "upload_data_to_server.h"
 
-#define BAUD_RATE 19200
-
 static bool get_temp_humi_flag = false;
 static bool get_ad_value_flag = false;
 static bool update_value_flag = false;
